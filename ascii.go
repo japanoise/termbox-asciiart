@@ -19,3 +19,13 @@ func (a *Ascii) DrawAscii(x, y int) {
 		}
 	}
 }
+
+func (a *Ascii) DrawAsciiNoClobber(x, y int) {
+	for iy, tileList := range a.Data {
+		for ix, tile := range tileList {
+			if !(tile.C == " " && tile.Fg == termbox.ColorDefault && tile.Bg == tile.Fg) {
+				termbox.SetCell(x+ix, y+iy, rune(tile.C[0]), tile.Fg, tile.Bg)
+			}
+		}
+	}
+}
